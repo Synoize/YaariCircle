@@ -14,6 +14,7 @@ import ClientList from './pages/Admin/ClientList';
 import UserList from './pages/Admin/UserList';
 import ProductList from './pages/Admin/ProductList';
 import OrderList from './pages/Admin/OrderList';
+import AddUser from './pages/Admin/AddUser';
 
 
 const App = () => {
@@ -40,6 +41,7 @@ const App = () => {
                   <Route path={'/clients'} element={<ClientList />} />
                   <Route path={'/clients/add'} element={<AddClient />} />
                   <Route path={'/users'} element={<UserList />} />
+                  <Route path={'/users/add'} element={<AddUser />} />
                 </>
               ) : (
                 <>

@@ -38,7 +38,6 @@ export const addNewProduct = async (req, res) => {
     }
 };
 
-
 // Update product API : /api/product/update/:id
 export const updateProduct = async (req, res) => {
     try {

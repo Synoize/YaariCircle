@@ -18,18 +18,36 @@
       --bg2: #0f172a;
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     @keyframes floatY {
-      0% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-25px) scale(1.03); }
-      100% { transform: translateY(0) scale(1); }
+      0% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-25px) scale(1.03);
+      }
+
+      100% {
+        transform: translateY(0) scale(1);
+      }
     }
 
     @keyframes hueShift {
-      0% { filter: hue-rotate(0deg); }
-      50% { filter: hue-rotate(40deg); }
-      100% { filter: hue-rotate(0deg); }
+      0% {
+        filter: hue-rotate(0deg);
+      }
+
+      50% {
+        filter: hue-rotate(40deg);
+      }
+
+      100% {
+        filter: hue-rotate(0deg);
+      }
     }
 
     .particles-canvas {
@@ -53,7 +71,6 @@
       z-index: 0;
       pointer-events: none;
     }
-
   </style>
 
   <script>

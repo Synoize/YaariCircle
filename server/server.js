@@ -19,12 +19,6 @@ const corsOptions = {
     origin: [
         "http://localhost:5174",
         "http://localhost:5173",
-        "https://printova.vercel.app",
-        "https://printova-admin.vercel.app",
-        "https://printova-admin.com",
-        "https://admin.printova.com",
-        "https://www.printova.in",
-        "https://admin.printova.in/"
     ],
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,

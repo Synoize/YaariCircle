@@ -144,7 +144,7 @@ export const allUsers = async (req, res) => {
     try {
         const data = await UserModel.find({}).select('-password')
 
-        const users = data.filter(user => user.isClient === false);
+        const users = data.filter(user => user.isStaff === false);
 
         return res.json({ success: true, users });
     } catch (error) {
@@ -190,5 +190,75 @@ export const adminDashboard = async (req, res) => {
 
     } catch (error) {
         return res.json({ success: false, message: error.message });
+    }
+};
+
+// Add new User API : /api/user/add-user
+export const addNewUser = async (req, res) => {
+  try {
+    const { name, phone, subscription, address } = req.body;
+
+    // Validate required fields
+    if (!name || !phone || !subscription || !address) {
+      return res.status(400).json({ success: false, message: "Missing required fields" });
+    }
+
+    // Check for existing user
+    const existingUser = await UserModel.findOne({ phone });
+    if (existingUser) {
+      return res.status(409).json({ success: false, message: "User already exists" });
+    }
+
+    // Create and save new user
+    const newUser = new UserModel({
+      name,
+      phone,
+      subscription,
+      address,
+    });
+
+    await newUser.save();
+
+    return res.status(201).json({
+      success: true,
+      message: "User added successfully",
+      data: newUser,
+    });
+  } catch (error) {
+    console.error("Add User Error:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+// add Delivery Date API: /api/admin/delivery
+export const addDeliveryDate = async (req, res) => {
+    try {
+        const { userId, mealType, date } = req.body;
+
+        console.log(userId, mealType, date);
+        
+        if (!userId || !mealType || !date) {
+            return res.status(400).json({ message: "Missing required fields" });
+        }
+
+        const validMeals = ["breakfast", "lunch", "dinner"];
+        if (!validMeals.includes(mealType)) {
+            return res.status(400).json({ message: "Invalid meal type" });
+        }
+
+        const user = await UserModel.findById(userId);
+        if (!user) return res.status(404).json({ message: "User not found" });
+
+        user.delivered[mealType].set(date, true);
+
+        await user.save();
+        
+        return res.status(200).json({
+            message: "Delivered successfully",
+            delivered: user.delivered
+        });
+
+    } catch (error) {
+        return res.status(500).json({ message: "Server Error", error: error.message });
     }
 };

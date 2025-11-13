@@ -35,7 +35,7 @@ const AdminContextProvider = (props) => {
         }
     }
 
-     // Get All Users
+    // Get All Users
     const getAllUsers = async () => {
         try {
             const { data } = await axios.get(`${backendUrl}/api/admin/all-users`, {
@@ -45,6 +45,8 @@ const AdminContextProvider = (props) => {
                 }
             });
 
+            console.log("users: ", data.users);
+            
             if (data.success) {
                 setUsers(data.users)
             } else {
@@ -56,7 +58,7 @@ const AdminContextProvider = (props) => {
     }
 
     // Get All Products
-     const getAllProducts = async () => {
+    const getAllProducts = async () => {
         try {
             const { data } = await axios.get(`${backendUrl}/api/admin/all-products`, {
                 headers: {
@@ -80,7 +82,12 @@ const AdminContextProvider = (props) => {
     // Get Dashboard Data
     const getDashData = async () => {
         try {
-            const { data } = await axios.get(`${backendUrl}/api/admin/dashboard`, { headers: { aToken } })
+            const { data } = await axios.get(`${backendUrl}/api/admin/dashboard`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${aToken}`,
+                }
+            })
 
             if (data.success) {
                 setDashData(data.dashData)
