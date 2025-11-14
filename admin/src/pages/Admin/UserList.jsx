@@ -11,7 +11,7 @@ const UserList = () => {
 
   const markDelivered = async (userId, mealType) => {
     try {
-      const res = await axios.patch(
+      await axios.patch(
         `${backendUrl}/api/admin/delivery`,
         {
           userId,
@@ -25,8 +25,6 @@ const UserList = () => {
         }
       );
 
-      console.log(res);
-      
       getAllUsers();
     } catch (error) {
       toast.error("Failed to update delivery");
@@ -77,7 +75,7 @@ const UserList = () => {
                 </button>
               )}
             </div>
-            
+
             <div className="flex items-center gap-2">
               <b>Dinner:</b>
               {dinner ? (
